@@ -22,4 +22,14 @@
         android:name="com.example.resep.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+    <fragment
+        android:id="@+id/navigation_resep"
+        android:name="com.example.resep.ui.resep.ResepFragment"
+        android:label="@string/title_resep"
+        tools:layout="@layout/fragment_resep" />
+    <fragment
+        android:id="@+id/navigation_cari"
+        android:name="com.example.resep.ui.cari.CariFragment"
+        android:label="@string/title_cari"
+        tools:layout="@layout/fragment_cari" />
 </navigation>
