@@ -15,18 +15,10 @@ import androidx.navigation.ui.NavigationUI;
 
 public class MainActivity extends AppCompatActivity {
 
-    // Alert Dialog Manager
-    AlertDialogManager alert = new AlertDialogManager();
-
-    // Session Manager Class
-    SessionManagement session;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        session = new SessionManagement(getApplicationContext());
-        session.checkLogin();
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -37,16 +29,6 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
-//        logout.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View arg0) {
-//                // Clear the session data
-//                // This will clear all session data and
-//                // redirect user to LoginActivity
-//                session.logoutUser();
-//            }
-//        });
     }
 
 }

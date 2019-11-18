@@ -7,12 +7,14 @@
     <string name="title_cari">Cari</string>
     <string name="title_activity_login">Sign in</string>
     <string name="prompt_email">Email</string>
-    <string name="prompt_username">Username</string>
+    <string name="prompt_username">Name</string>
     <string name="prompt_password">Password</string>
     <string name="prompt_repassword">Retype Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_register">Register</string>
-    <string name="action_sign_in_short">Sign in</string>
+    <string name="action_sign_in">Sign In</string>
+    <string name="action_register">Sign Up</string>
+    <string name="action_sign_in_short">Sign In</string>
+    <string name="action_sign_up">Dont Have Account ? <b><font colour='#000000'>Sign Up</font></b> here </string>
+    <string name="action_signin">Have Account ? <b><font colour='#000000'>Sign In</font></b> here </string>
     <string name="action_logout">Logout</string>
     <string name="welcome">"Welcome !"</string>
     <string name="invalid_username">Not a valid username</string>

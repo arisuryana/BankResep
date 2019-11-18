@@ -2,86 +2,121 @@ package com.example.resep.ui.register;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.resep.APIHelper.BaseApiService;
+import com.example.resep.APIHelper.UtilsApi;
 import com.example.resep.AlertDialogManager;
 import com.example.resep.MainActivity;
 import com.example.resep.R;
 import com.example.resep.SessionManagement;
 import com.example.resep.ui.login.LoginActivity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class RegisterActivity extends AppCompatActivity{
+    EditText etNama;
+    EditText etEmail;
+    EditText etPassword;
+    EditText etCpassword;
+    Button btnRegister;
+    TextView tvLogin;
+    ProgressDialog loading;
 
-    // Email, password edittext
-    EditText username, password, retypepass, email;
-
-    // login button
-    Button regis;
-
-    // Alert Dialog Manager
-    AlertDialogManager alert = new AlertDialogManager();
-
-    // Session Manager Class
-    SessionManagement session;
+    Context mContext;
+    BaseApiService mApiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        // Session Manager
-        session = new SessionManagement(getApplicationContext());
+        mContext = this;
+        mApiService = UtilsApi.getApiService();
 
-        // Email, Password input text
-        username = (EditText) findViewById(R.id.username);
-        password = (EditText) findViewById(R.id.password);
-        email = (EditText) findViewById(R.id.email);
-        retypepass = (EditText) findViewById(R.id.retype);
+        initComponents();
+    }
 
-        // Login button
-        regis = (Button) findViewById(R.id.register);
+    private void initComponents() {
+        etNama = (EditText) findViewById(R.id.name);
+        etEmail = (EditText) findViewById(R.id.email);
+        etPassword = (EditText) findViewById(R.id.password);
+        etCpassword = (EditText) findViewById(R.id.retype);
+        btnRegister = (Button) findViewById(R.id.register);
+        tvLogin = (TextView) findViewById(R.id.textView2);
 
-
-        // Login button click event
-        regis.setOnClickListener(new View.OnClickListener() {
-
+        btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View arg0) {
-                // Get username, password from EditText
-                String nama = username.getText().toString();
-                String kode = password.getText().toString();
-                String eemail = email.getText().toString();
-
-//                 Check if username, password is filled
-                if(nama.trim().length() > 0 && kode.trim().length() > 0 && eemail.trim().length() > 0){
-//                    // For testing puspose username, password is checked with sample data
-//                    // username = test
-//                    // password = test
-//                    if(username.equals("test") && password.equals("test")){
-//
-//                        // Creating user login session
-//                        // For testing i am stroing name, email as follow
-//                        // Use user real data
-//                        session.createLoginSession("Android Hive", "anroidhive@gmail.com");
-//
-//                        // Staring MainActivity
-                        Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                        startActivity(i);
-                        finish();
-//
-//                    }else{
-//                        // username / password doesn't match
-//                        alert.showAlertDialog(LoginActivity.this, "Login failed..", "Username/Password is incorrect", false);
-//                    }
-                }else{
-                    // user didn't entered username or password
-                    // Show alert asking him to enter the details
-                    alert.showAlertDialog(RegisterActivity.this, "Register failed..", "Please fill the form", false);
-                }
+            public void onClick(View v) {
+                loading = ProgressDialog.show(mContext, null, "Harap Tunggu...", true, false);
+                requestRegister();
             }
         });
+
+        tvLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(mContext, LoginActivity.class));
+                finish();
+            }
+        });
+    }
+
+    private void requestRegister() {
+        mApiService.registerRequest(etNama.getText().toString(),
+                etEmail.getText().toString(),
+                etPassword.getText().toString(),
+                etCpassword.getText().toString())
+                .enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        if (response.isSuccessful()){
+                            Log.i("debug", "onResponse : BERHASIL");
+                            loading.dismiss();
+                            try{
+                                JSONObject jsonRESULTS = new JSONObject(response.body().string());
+                                if (jsonRESULTS.getString("error").equals("false")) {
+                                    Toast.makeText(mContext, "Berhasil Registrasi", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(mContext, LoginActivity.class));
+                                    finish();
+                                }else{
+                                    String error_message = jsonRESULTS.getString("error_msg");
+                                    Toast.makeText(mContext, error_message, Toast.LENGTH_SHORT).show();
+                                }
+
+                            } catch (JSONException e){
+                                e.printStackTrace();;
+                            } catch (IOException e){
+                                e.printStackTrace();
+                            }
+
+                        } else {
+                            Log.i("debug", "onResponse : GAGAL");
+                            loading.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.e("debug", "onFailure: ERROR > "+ t.getMessage());
+                        Toast.makeText(mContext, "Periksa Koneksi", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }
