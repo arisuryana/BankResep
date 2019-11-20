@@ -16,25 +16,19 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.resep.R;
 import com.example.resep.SessionManagement;
 
-public class HomeFragment extends Fragment implements View.OnClickListener{
+public class HomeFragment extends Fragment{
 
-    Button logout;
-    SessionManagement session;
 
     private HomeViewModel homeViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
-
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         final TextView textView = root.findViewById(R.id.text_home);
         final TextView textView2 = root.findViewById(R.id.welcome);
-        session = new SessionManagement(getActivity().getApplicationContext());
-        logout=(Button)root.findViewById(R.id.btnLogout);
-        logout.setOnClickListener(this);
+
         homeViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
@@ -43,16 +37,5 @@ public class HomeFragment extends Fragment implements View.OnClickListener{
         });
 
         return root;
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btnLogout:
-                session.logoutUser();
-                break;
-            default:
-                break;
-        }
     }
 }

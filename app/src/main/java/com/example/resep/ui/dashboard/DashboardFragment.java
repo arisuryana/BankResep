@@ -13,8 +13,9 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.resep.R;
+import com.example.resep.ui.home.HomeFragment;
 
-public class DashboardFragment extends Fragment {
+public class DashboardFragment extends HomeFragment{
 
     private DashboardViewModel dashboardViewModel;
 
