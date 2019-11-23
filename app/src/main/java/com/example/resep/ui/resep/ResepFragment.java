@@ -54,7 +54,7 @@ public class ResepFragment extends Fragment {
         if (getView() == null) {
             mImageName.add("Gambar1");
             mImagesDesc.add("GAMMMMBAR");
-            mImage.add(R.drawable.gambar);
+            mImage.add(R.drawable.profil);
             return;
         } else {
             Log.d(TAG, "initImageBitmap: preparing bitmaps.");

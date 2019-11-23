@@ -26,13 +26,13 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
     private ArrayList<String> mImageName = new ArrayList<>();
     private ArrayList<Integer> mImage = new ArrayList<>();
     private ArrayList<String> mImageDesc = new ArrayList<>();
-    private Context mContext;
+    private static Context mContext;
 
-    public RecycleViewAdapter(Context context, ArrayList<String> mImageName, ArrayList<Integer> mImage, ArrayList<String> mImageDesc) {
+    public RecycleViewAdapter(Context mContext, ArrayList<String> mImageName, ArrayList<Integer> mImage, ArrayList<String> mImageDesc) {
         this.mImageName = mImageName;
         this.mImage = mImage;
         this.mImageDesc = mImageDesc;
-        this.mContext = context;
+        this.mContext = mContext;
     }
 
     @Nullable
@@ -59,7 +59,8 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
             @Override
             public void onClick(View view){
                 Log.d(TAG, "onClick: Kepencet on: "+ mImageName.get(position));
-                Toast.makeText(mContext, mImageName.get(position), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mContext, "AAAAAAAA", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mContext, mImageName.get(position), Toast.LENGTH_SHORT).show();
             }
         });
 
