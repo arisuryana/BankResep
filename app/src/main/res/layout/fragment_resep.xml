@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/recycleview"
-        ></androidx.recyclerview.widget.RecyclerView>
+        ></de.hdodenhof.circleimageview.CircleImageView>
 
     <TextView
         android:id="@+id/text_resep"
@@ -22,4 +22,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

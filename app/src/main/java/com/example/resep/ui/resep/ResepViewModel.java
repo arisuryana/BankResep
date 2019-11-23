@@ -10,7 +10,7 @@ public class ResepViewModel extends ViewModel {
 
     public ResepViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is resep fragment");
+        mText.setValue("");
     }
 
     public LiveData<String> getText() {
