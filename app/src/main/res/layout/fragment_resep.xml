@@ -4,6 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/recycleview"
+        ></androidx.recyclerview.widget.RecyclerView>
+
     <TextView
         android:id="@+id/text_resep"
         android:layout_width="match_parent"
