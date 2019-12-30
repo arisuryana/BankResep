@@ -5,6 +5,7 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 
 public interface BaseApiService {
     //Memanggil API Login
@@ -21,8 +22,18 @@ public interface BaseApiService {
                                        @Field("password") String password,
                                        @Field("c_password") String cpassword);
 
-    //Fungsi Detail User Profile
+    //Fungsi Detail User
     @FormUrlEncoded
     @POST("detail")
     Call<ResponseBody> detailUser(@Field("id") Integer id);
+
+
+    @FormUrlEncoded
+    @PUT("updateProfile/")
+    Call<ResponseBody> updateProfile(@Field("id") int id, @Field("email") String email, @Field("name") String name);
+
+    @FormUrlEncoded
+    @PUT("updatePassword/")
+    Call<ResponseBody> updatePassword(@Field("id") int id, @Field("pass_lama") String pass_lama, @Field("pass_baru") String pass_baru);
+
 }

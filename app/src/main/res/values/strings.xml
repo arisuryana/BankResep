@@ -10,14 +10,22 @@
     <string name="prompt_username">Name</string>
     <string name="prompt_password">Password</string>
     <string name="prompt_repassword">Retype Password</string>
+    <string name="prompt_passwordLama">Password Lama</string>
+    <string name="prompt_passwordBaru">Password Baru</string>
     <string name="action_sign_in">Sign In</string>
     <string name="action_register">Sign Up</string>
     <string name="action_sign_in_short">Sign In</string>
     <string name="action_sign_up">Dont Have Account ? <b><font colour='#000000'>Sign Up</font></b> here </string>
     <string name="action_signin">Have Account ? <b><font colour='#000000'>Sign In</font></b> here </string>
     <string name="action_logout">Logout</string>
+    <string name="action_save">Save</string>
     <string name="welcome">"Welcome !"</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="btn_editprofile">Edit Profile</string>
+    <string name="btn_gantipassword">Ganti Password</string>
+
+    <string name="btn_publish">Publish</string>
+    <string name="btn_detail">Detail Resep</string>
 </resources>

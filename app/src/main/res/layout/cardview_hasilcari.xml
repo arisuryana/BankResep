@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardview_hasilcari"
+    android:layout_gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    app:cardCornerRadius="4dp">
+
+    <RelativeLayout
+        android:id="@+id/cardviewhasilcari_relative1"
+        android:layout_width="match_parent"
+        android:layout_height="420dp"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/img_item_photo"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginBottom="4dp"
+            android:scaleType="centerCrop"
+            tools:src="@color/colorAccent" />
+
+        <TextView
+            android:id="@+id/tv_item_judul"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/img_item_photo"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:layout_marginBottom="5dp"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            tools:text="Judul Resep" />
+
+        <TextView
+            android:id="@+id/tv_item_admin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_item_judul"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:layout_marginBottom="5dp"
+            android:drawablePadding="10dp"
+            android:textSize="15sp"
+            android:textColor="@android:color/black"
+            android:drawableLeft="@drawable/ic_person_black_15dp"
+            tools:text="Admin" />
+
+        <TextView
+            android:id="@+id/tv_item_tanggal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_item_admin"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:layout_marginBottom="5dp"
+            android:drawablePadding="10dp"
+            android:textSize="15sp"
+            android:textColor="@android:color/black"
+            android:drawableLeft="@drawable/ic_date_black_20dp"
+            tools:text="Tanggal" />
+
+        <TextView
+            android:id="@+id/tv_item_lokasi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_item_tanggal"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:layout_marginBottom="5dp"
+            android:textColor="@android:color/black"
+            android:text="Kategori Lokasi"
+            android:drawablePadding="10dp"
+            android:textSize="15sp"
+            android:drawableLeft="@drawable/ic_location_20dp"/>
+
+        <TextView
+            android:id="@+id/tv_item_jenis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_item_lokasi"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:layout_marginBottom="5dp"
+            android:textColor="@android:color/black"
+            android:drawablePadding="10dp"
+            tools:text="Kategori Jenis"
+            android:textSize="15sp"
+            android:drawableLeft="@drawable/ic_list_black_20dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_set_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginRight="2dp"
+                android:text="@string/btn_detail"
+                android:textSize="12sp"/>
+            
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.resep.addresep.AddResepActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/img_review_photo"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:scaleType="centerCrop"
+            android:src="@color/cardview_dark_background"/>
+
+        <Button
+            android:id="@+id/btn_upload_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Upload Image"
+            android:layout_marginBottom="5dp"
+            android:layout_below="@id/img_review_photo"
+            android:drawableTop="@drawable/ic_file_upload_15dp"/>
+
+        <TableLayout
+            android:id="@+id/add_resep_r1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_upload_image"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+            <TableRow>
+                <TextView
+                    android:id="@+id/tv_nama_resep"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Nama Resep"/>
+
+                <EditText
+                    android:id="@+id/et_judulresep"
+                    android:layout_width="280dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:inputType="text" />
+
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:id="@+id/tv_deskripsi_resep"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Deskripsi Resep"/>
+
+                <EditText
+                    android:id="@+id/et_deskripsiresep"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:inputType="textMultiLine" />
+            </TableRow>
+            <TableRow
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:id="@+id/tv_lokasi_resep"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Lokasi Resep"/>
+
+                <Spinner
+                    android:id="@+id/spin_lokasi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+            <TableRow
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:id="@+id/tv_jenis_resep"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Jenis Resep"/>
+
+                <Spinner
+                    android:id="@+id/spin_jenis"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:id="@+id/tv_bahan_resep"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Bahan-Bahan"/>
+
+                <EditText
+                    android:id="@+id/et_bahanresep"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:inputType="textMultiLine" />
+            </TableRow>
+            <TableRow>
+                <TextView
+                    android:id="@+id/tv_caramasak_resep"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Cara Memasak"/>
+
+                <EditText
+                    android:id="@+id/et_caramasak"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:inputType="textMultiLine" />
+            </TableRow>
+        </TableLayout>
+
+        <Button
+            android:id="@+id/btn_save_resep"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/add_resep_r1"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="Simpan Resep"/>
+
+    </RelativeLayout>
+
+</ScrollView>

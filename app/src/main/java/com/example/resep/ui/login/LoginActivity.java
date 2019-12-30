@@ -14,12 +14,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.resep.APIHelper.ApiClient;
 import com.example.resep.APIHelper.BaseApiService;
 import com.example.resep.APIHelper.UtilsApi;
-import com.example.resep.AlertDialogManager;
 import com.example.resep.MainActivity;
 import com.example.resep.R;
-import com.example.resep.SessionManagement;
+import com.example.resep.bantuan.PreferencesHelper;
+import com.example.resep.model.User;
+import com.example.resep.ui.register.AuthPresenter;
+import com.example.resep.ui.register.AuthView;
 import com.example.resep.ui.register.RegisterActivity;
 
 import org.json.JSONException;
@@ -32,32 +35,34 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements AuthView, View.OnClickListener {
     EditText etEmail;
     EditText etPassword;
     Button btnLogin;
     TextView tvRegister;
     ProgressDialog loading;
 
-    private SharedPreferences profile;
+    PreferencesHelper preferencesHelper;
+    AuthPresenter presenter;
+
     Context mContext;
-    BaseApiService mApiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mContext = this;
-        mApiService = UtilsApi.getApiService();
+        preferencesHelper=new PreferencesHelper(mContext);
+
+        Intent intent;
+        intent = new Intent(LoginActivity.this, MainActivity.class);
+        if(preferencesHelper.getLogin()){
+            startActivity(intent);
+            finish();
+        }
 
         initComponents();
 
-        profile = getSharedPreferences("profile", Context.MODE_PRIVATE);
-        final Intent toMain = new Intent(LoginActivity.this, MainActivity.class);
-        if(profile.contains("id")){
-            startActivity(toMain);
-            finish();
-        }
     }
 
     private void initComponents() {
@@ -66,26 +71,8 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = (Button) findViewById(R.id.btnLogin);
         tvRegister = (TextView) findViewById(R.id.tv_signup);
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean anyError = false;
-                if(etEmail.getText().toString().equals("")){
-                    etEmail.setError("Email tidak Boleh Kosong");
-                    anyError = true;
-                }
-
-                if(etPassword.getText().toString().equals("")){
-                    etPassword.setError("Password tidak Boleh Kosong");
-                    anyError = true;
-                }
-
-                if(!anyError){
-                    loading = ProgressDialog.show(mContext, null, "Harap Tunggu...", true, false);
-                    requestLogin();
-                }
-            }
-        });
+        btnLogin.setOnClickListener(this);
+        presenter = new AuthPresenter(this, ApiClient.getService(mContext));
 
         tvRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,52 +83,57 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void requestLogin() {
-        mApiService.loginRequest(etEmail.getText().toString(), etPassword.getText().toString())
-                .enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        if(response.isSuccessful()){
-                            loading.dismiss();
-                            try{
-                                JSONObject jsonRESULTS = new JSONObject(response.body().string());
-                                if (jsonRESULTS.getString("error").equals("false")){
-                                    // Jika login berhasil, data nama akan di parsing ke activity selanjutnya
-                                    Toast.makeText(mContext, "Berhasil Login", Toast.LENGTH_SHORT).show();
-                                    int id = jsonRESULTS.getJSONObject("user").getInt("id");
-                                    Log.d("debug", "id : "+id);
-
-                                    //Simpan ke Shared Preferences
-                                    SharedPreferences profile = getSharedPreferences("profile", Context.MODE_PRIVATE);
-                                    SharedPreferences.Editor profileEditor = profile.edit();
-                                    profileEditor.putInt("id", id);
-                                    profileEditor.apply();
-
-                                    Intent intent = new Intent(mContext, MainActivity.class);
-                                    intent.putExtra("id", id);
-                                    startActivity(intent);
-                                    finish();
-                                } else {
-                                    //Jika Login Gagal
-                                    String error_message = jsonRESULTS.getString("error_msg");
-                                    Toast.makeText(mContext, error_message, Toast.LENGTH_SHORT).show();
-                                }
-
-                            } catch (JSONException e){
-                                e.printStackTrace();
-                            } catch (IOException e){
-                                e.printStackTrace();
-                            }
-                        } else {
-                            loading.dismiss();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        Log.e("debug", "onFailure : ERROR > "+ t.toString());
-                        loading.dismiss();
-                    }
-                });
+    @Override
+    public void onClick(View v){
+        switch (v.getId()) {
+            case R.id.btnLogin:
+                login();
+                break;
+        }
     }
+
+    @Override
+    public void onSuccess(User user) {
+        preferencesHelper.setUserLogin(user);
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+        Toast.makeText(mContext, "Login Berhasil", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onError() {
+        Toast.makeText(mContext, "Error", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onFailure(Throwable t) {
+        Toast.makeText(mContext, "Failed :"+t, Toast.LENGTH_SHORT).show();
+    }
+
+    public void login(){
+        String email = etEmail.getText().toString();
+        String password = etPassword.getText().toString();
+
+        if (validate(email, password)){
+            presenter.login(email, password);
+        }
+    }
+
+    public boolean validate(String email, String password){
+        if (email.equals("")){
+            etEmail.setError("Field email tidak boleh kosong");
+            return false;
+        }
+
+        if (password.equals("")){
+            etPassword.setError("Field password tidak boleh kosong");
+            return false;
+        }
+
+        return true;
+    }
+
+
+
+
 }
